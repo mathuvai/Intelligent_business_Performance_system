@@ -17,4 +17,10 @@ data/
 models/
 logs/
 
+kaggle.json
+*.csv
+*.zip
+*.pdf
+data_raw/
+
 
