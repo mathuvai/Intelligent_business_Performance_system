@@ -2,7 +2,8 @@ from sklearn.preprocessing import RobustScaler
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler,OneHotEncoder
-from sklearn.compose import ColumnTransformer 
+from sklearn.compose import ColumnTransformer
+ 
 
 def Data_Preprocessing(Employee_df,X_val,X_train,X_test,Y_test,Y_train,Y_val):
     for col in X_train.select_dtypes(include="object").columns:
@@ -19,19 +20,24 @@ def Data_Preprocessing(Employee_df,X_val,X_train,X_test,Y_test,Y_train,Y_val):
 
     # seaborn plot for Numerical vs categorical target
     for col in numerical_feature_data_col:
-        sns.barplot(
-            data=Employee_df,
-            x=target_feature,
-            y=col
-        )
-        plt.show()
-    # categorical vs categorical relationship
-    for col in categorical_feature_data_col:
-        sns.countplot(
+        sns.regplot(
             data=Employee_df,
             x=col,
-            hue=target_feature
+            y=target_feature,
+            lowess=True
         )
+        plt.title(f"{col} vs {target_feature}")
+        plt.show()
+    # categorical vs numeric relationship
+    for col in categorical_feature_data_col:
+        sns.barplot(
+            data=Employee_df,
+            x=col,
+            y=target_feature,
+            estimator="mean"
+        )
+        plt.title(f"Average {target_feature} by {col}")
+        plt.xticks(rotation=45)
         plt.show()
     
     #correlation heatmap
@@ -66,6 +72,7 @@ def Data_Preprocessing(Employee_df,X_val,X_train,X_test,Y_test,Y_train,Y_val):
     X_val_processed   = preprocessor.transform(X_val)
     X_test_processed  = preprocessor.transform(X_test)
     features_name=preprocessor.get_feature_names_out()
+    print(X_train_processed)
     
    
 

@@ -12,7 +12,7 @@ def Employee_train_test_split(Employee_df):
     )
     Employee_df_train=Employee_df.drop(columns=['Performance Score','Salary','ID','Performance Category'])
     X=Employee_df_train
-    Y=Employee_df['Performance Category']
+    Y=Employee_df['Performance Score']
 
     X_train, X_temp, Y_train, Y_temp = train_test_split(
         X, Y, test_size=0.30, random_state=42)

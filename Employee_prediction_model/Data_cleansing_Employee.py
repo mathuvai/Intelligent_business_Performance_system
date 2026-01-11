@@ -46,7 +46,27 @@ def Cleansing_Employee()-> pd.DataFrame:
         plt.hist(numerical_Empliyee_df[col],bins=100,color='blue',edgecolor='black')
         plt.ylabel(f"Distribution of {col} data distribution")
         plt.xlabel(col)
-        plt.title("Histogram of data distribution for {col} as below")
+        plt.title(f"Histogram of data distribution for {col} as below")
+        plt.show()
+    drop_cols=["Name","Joining Date"]
+    categorical_feature_data=categorical_Employee_df.drop(columns=drop_cols)
+    categorical_Employee_df_columns=categorical_feature_data.columns
+
+    for col in categorical_Employee_df_columns:
+        X=categorical_Employee_df[col].value_counts()
+     
+        plt.figure(figsize=(6,8))
+        plt.pie(
+                X.values,
+                labels=X.index,
+                autopct='%1.1f%%',  # Add percentage labels with one decimal place
+                shadow=True,
+                startangle=90,  # Start the first slice at 90 degrees (12 o'clock)
+                 wedgeprops={'edgecolor': 'white', 'linewidth': 1} # Customize wedge borders
+                )
+        plt.axis('equal')
+        plt.title(f"{col} distribution")
+        plt.legend(X.index,loc="best")
         plt.show()
     
     for col in numerical_Empliyee_df_columns:
